@@ -1,0 +1,26 @@
+<model 	title="User" 
+		name="User"
+		tableName="user"
+		IdPropertyName="UserId"
+		titleList="FirstName,LastName"
+		addList="FirstName,LastName,Email"
+		editList="FirstName,LastName,Email"
+		defaultOrder="LastName,FirstName"
+		extends="abstractobject">
+
+
+<properties>
+	<property title="First Name" name="FirstName" dataType="string" dataTypeProperties="size=5,maxLength=50" />
+	<property title="Last Name" name="LastName" dataType="string" dataTypeProperties="size=10,maxLength=20"/>
+	<property title="Email" name="Email" dataType="email" dataTypeProperties=""/>
+</properties>
+
+<validationContexts>
+	<validationContext name="Admin" requiredPropertyNameList="FirstName,LastName,Email" validationRuleList="" />
+</validationContexts>
+
+<validationRules>
+	<propertyValuesMatch name="PasswordMatchesConfirmation" propertyName="FirstName" firstPropertyName="FirstName" secondPropertyName="LastName" />
+</validationRules>
+
+</model>

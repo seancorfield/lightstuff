@@ -1,0 +1,83 @@
+<documentation name="model" shortDescription="The XML for describing business objects">
+
+<attributes>
+	<attribute name="title" description="The human readable title for the business object" required="true" default="" type="string" typeproperties="maxlength=50" />
+	<attribute name="name" description="The 'variable friendly' name for the business object. [a-zA-Z0-9-] and starting with a letter. Business object names must be unique within a project." required="false" default="Title with all unacceptable characters removed." type="string" typeproperties="maxlength=35" />
+	<attribute name="tableName" description="The actual name of the database table the object is persisted in. Useful for legacy schemas and single table inheritance." required="true" default="" type="string" typeproperties="maxlength=50" />
+	<attribute name="IdPropertyName" description="The name of the property that uniquely identifies object instances. E.g. UserId or Id or UserUUID." required="false" default="Id" type="Enum" typeproperties="list=businessObjectPropertyName" />
+	<attribute name="titleList" description="The comma delimited list of property names that combined make up the title of an object instance. E.g. FirstName,LastName or PublicationTitle" required="true" default="" type="EnumList" typeproperties="list=businessObjectPropertyName" />
+	<attribute name="addList" description="The comma delimited list of properties to include in the default add form for the object. Required for any administratable objects." required="false" default="" type="EnumList" typeproperties="list=businessObjectPropertyName" />
+	<attribute name="editList" description="The comma delimited list of properties to include in the default add form for the object. Required for any administratable objects." required="false" default="" type="EnumList" typeproperties="list=businessObjectPropertyName" />
+	<attribute name="defaultOrder" description="A default comma delimited list of the properties to order the results by - optionally with DESC or ASC after any/all of them." required="false" default="%model.defaultOrder%" type="string" typeproperties="maxlength=150" />
+	<attribute name="extends" description="The business object that this object extends (inheriting but being able to overload all of its properties). All objects extend either the abstractObject or an object that extends it." required="true" default="" type="Enum" typeproperties="list=businessObject" />
+<!--  
+	<attribute name="" description="" required="" default="" type="" typeproperties="" />
+ -->
+</attributes>
+
+<propertyTypes>
+	<property name="property" description="The standard persistable, editable property">
+		<attribute name="title" description="The human readable title for the property" required="true" default="" type="string" typeproperties="maxlength=50" />
+		<attribute name="name" description="The 'variable friendly' name for the property. [a-zA-Z0-9-] and starting with a letter. Property names must be unique within a business object." required="false" default="Title with all unacceptable characters removed." type="string" typeproperties="maxlength=50" />
+		<attribute name="dataType" description="The lightBase custom data type for the property. Affects how the property is displayed, edited, validated and processed." required="true" default="" type="Enum" typeproperties="List=dataType" />
+		<attribute name="dataTypeProperties" description="A comma delimited list of name=value properties for setting data type specific properties like size and maxlength for a string or the upload directory for a file" required="false" default="" type="NameValueList" typeproperties="List=dataTypeProperties" />
+		<notes><![CDATA['
+Most properties use the "property" tag. These are for properties that are capable of being edited and persisted.
+		']]></notes>
+	</property>
+<!-- 
+	<property name="" description="">
+		<attribute name="" description="" required="" default="" type="" typeproperties="" />
+	</property>
+ -->
+</propertyTypes>
+
+<methods>
+	<method name="getByFilter" description="I return a list of business objects (with any required properties from associated objects).">
+		<attribute name="name" description="The runtime name of the method. E.g. getNewUsers" required="true" default="" type="string" typeproperties="maxlength=50" />
+		<attribute name="filter" description="The filter to apply to the records returned. If no filter is supplied, all objects are returned." required="false" default="1=1" type="string" typeproperties="maxlength=500" />
+		<attribute name="propertyNameList" description="A comma delimited list of the property names to return for the objects." required="true" default="" type="EnumList" typeproperties="list=businessObjectPropertyNames" />
+		<attribute name="order" description="A comma delimited list of the properties to order the results by - optionally with DESC or ASC after any/all of them." required="false" default="%model.defaultOrder%" type="string" typeproperties="maxlength=150" />
+		<notes><![CDATA['
+		']]></notes>
+	</method>
+	<method name="getByProperty" description="I return the business object(s) matching a property value. I support comma delimited lists for returning items matching any of the values.">
+		<attribute name="name" description="The runtime name of the method. E.g. getAttorneyById" required="true" default="" type="string" typeproperties="maxlength=50" />
+		<attribute name="propertyName" description="The name of the property to use to obtain an object instance." required="false" default="Id" type="Enum" typeproperties="list=businessObjectPropertyNames" />
+		<attribute name="propertyValue" description="The runtime value of the property. Usually a variable like %Id% to be the form/URL.Id field." required="false" default="0" type="string" typeproperties="maxlength=50" />
+		<notes><![CDATA['
+		']]></notes>
+	</method>
+<!--  
+	<method name="" description="">
+		<attribute name="" description="" required="" default="" type="" typeproperties="" />
+		<notes><![CDATA['
+		']]></notes>
+	</method>
+ -->
+</methods>
+
+<validationContexts>
+	<validationContext name="validationContext" description="The rules for validating an object in a specific validation context.">
+		<attribute name="name" description="The name of the validation context E.g. Admin or Register or PrintSubscriber" required="true" default="" type="string" typeproperties="maxlength=50" />
+		<attribute name="requiredPropertyNameList" description="A comma delimited list of the property names that are required (must have a non-zero length) for this request context." required="false" default="" type="EnumList" typeproperties="List=businessObjectPropertyNameList" />
+		<attribute name="validationRuleList" description="A comma delimited list of validation rules to perform as part of validating the context." required="false" default="" type="EnumList" typeproperties="List=businessObjectValidationRule" />
+	</validationContext>
+</validationContexts>
+
+<validationRules>
+	<rule name="propertyValuesMatch" description="I confirm that the values of two properties are identical - e.g. a password and confirmation password.">
+		<attribute name="name" description="The name of the validation rule E.g. PasswordMatchesConfirmation" required="true" default="" type="string" typeproperties="maxlength=50" />
+		<attribute name="propertyName" description="The name of the property that this error message will be associated to - _object if it isn't property specific." required="true" default="" type="EnumorOther" typeproperties="List=businessObjectPropertyName" />
+		<attribute name="firstPropertyName" description="The name of the first property to compare" required="true" default="" type="Enum" typeproperties="businessObjectPropertyName" />
+		<attribute name="secondPropertyName" description="The name of the first property to compare" required="true" default="" type="Enum" typeproperties="businessObjectPropertyName" />
+	</rule>
+	
+<!--  
+	<rule name="" description="">
+		<attribute name="" description="" required="" default="" type="" typeproperties="" />
+	</rule>
+ -->
+</validationRules>
+
+</documentation>

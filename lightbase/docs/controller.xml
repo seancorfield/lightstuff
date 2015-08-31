@@ -1,0 +1,60 @@
+<documentation name="controller" shortDescription="The methods and parameters for XML controller methods">
+
+<methods>
+	<method name="display" description="I display a view without performing any other operations. The controller equivalent of a delegate.">
+		<attribute name="name" description="The runtime name of the method. E.g. displayThisPage" required="true" default="" type="string" typeproperties="maxlength=50" />
+		<attribute name="view" description="The name of the view to include. %folder%.%file%. E.g. admin.list." required="false" default="%controller%.%action%" type="string" typeproperties="maxlength=100" />
+	</method>
+	<method name="list" description="I get a list of business objects (with any required properties from associated objects) and passes it to a view.">
+		<attribute name="name" description="The runtime name of the method. E.g. adminList" required="true" default="" type="string" typeproperties="maxlength=50" />
+		<attribute name="view" description="The name of the view to include. %folder%.%file%. E.g. admin.list." required="false" default="%controller%.%action%" type="string" typeproperties="maxlength=100" />
+		<attribute name="businessObject" description="The primary business object to list" required="true" default="" type="Enum" typeproperties="list=businessObject" />
+		<attribute name="method" description="The method to call on the service class. Either a base method like getByFilter or a custom xml (or coded) method like getNewUsers" required="true" default="" type="Enum" typeproperties="list=businessObjectMethod" />
+		<notes><![CDATA['
+Because list methods usually call _getByFilter() or a method that calls _getByFilter(), you can also overload any of the attributes of the _getByFilter() method.
+For example, you could add an order="PageSpecificOrder" or PropertyList="PageSpecificPropertyList".
+		']]></notes>
+	</method>
+	<method name="objectform" description="I handle the display, validation and processing of a form for adding/editing business objects.">
+		<attribute name="name" description="The runtime name of the method. E.g. userEditForm" required="true" default="" type="string" typeproperties="maxlength=50" />
+		<attribute name="view" description="The name of the view to include. %folder%.%file%. E.g. admin.list." required="false" default="%controller%.%action%" type="string" typeproperties="maxlength=100" />
+		<attribute name="title" description="The title to display for the form. This doesn't *have* to be used by the form but is available through the business object as Item._getFormTitle()" required="false" default="" type="string" typeproperties="maxlength=500" />
+		<attribute name="businessObject" description="The business object to add/edit" required="true" default="" type="Enum" typeproperties="list=businessObject" />
+		<attribute name="propertyName" description="The name of the property to use to obtain an object instance for editing via getByProperty." required="false" default="Id" type="Enum" typeproperties="list=businessObjectPropertyName" />
+		<attribute name="propertyValue" description="The runtime value of the property. Usually a variable like %Id% to be the form/URL.Id field." required="false" default="0" type="string" typeproperties="maxlength=50" />
+		<attribute name="propertyList" description="The name of the list of properties to use. This is NOT a list of property names, but a single name that references a comma delimited property list within the business object. E.g. AddList or EditList" required="true" default="" type="Enum" typeproperties="list=businessObjectPropertyList" />
+		<attribute name="validationContextList" description="A comma delimited list of any validation contexts to use to validate the form against." required="false" default="" type="EnumList" typeproperties="list=businessObjectValidationContext" />
+		<attribute name="successLocation" description="The location to redirect to on success." required="true" default="" type="string" typeproperties="maxlength=250" />
+		<attribute name="successMessage" description="The message to display on the success page (flashed into session scope)." required="false" default="" type="string" typeproperties="maxlength=250" />
+		<notes><![CDATA['
+The object form displays a form. When it's submitted (back to itself), it loads up the object and validates it. 
+If valid, it redirects to the success location and flashes the success message into the session scope for display on the success page.
+Of invalid, it redisplays the form with the values pre-filled and all of the appropriate error messages.
+By default the propertyName defaults to Id which in turn calls the appropriate Id field for the object (the IdPropertyName attribute of the business object).
+For edit forms, you'll usually want to enter the propertyValue which is usually a runtime variable like %Id% (which gets URL.Id or form.Id from the event).
+For add forms, you don't need a propertyValue. If there isn't a propertyValue, it sets the value to 0 which tells the form this is an add, not an edit form.
+		']]></notes>
+	</method>
+	<method name="delete" description="I handle the confirmation and deleting of a business object.">
+		<attribute name="name" description="The runtime name of the method. E.g. deleteProduct" required="true" default="" type="string" typeproperties="maxlength=50" />
+		<attribute name="view" description="The name of the view to include. %folder%.%file%. E.g. admin.list." required="false" default="%controller%.%action%" type="string" typeproperties="maxlength=100" />
+		<attribute name="businessObject" description="The business object to add/edit" required="true" default="" type="Enum" typeproperties="list=businessObject" />
+		<attribute name="propertyName" description="The name of the property to use to obtain an object instance for deleting via getByProperty." required="false" default="Id" type="Enum" typeproperties="list=businessObjectPropertyName" />
+		<attribute name="propertyValue" description="The runtime value of the property. Usually a variable like %Id% to be the form/URL.Id field." required="true" default="" type="string" typeproperties="maxlength=50" />
+		<attribute name="successLocation" description="The location to redirect to on success." required="true" default="" type="string" typeproperties="maxlength=250" />
+		<attribute name="successMessage" description="The message to display on the success page (flashed into session scope)." required="false" default="" type="string" typeproperties="maxlength=250" />
+		<notes><![CDATA['
+		']]></notes>
+	</method>
+
+<!--  
+	<method name="" description="">
+		<attribute name="" description="" required="" default="" type="" typeproperties="" />
+		<notes><![CDATA['
+		']]></notes>
+	</method>
+ -->
+</methods>
+
+
+</documentation>

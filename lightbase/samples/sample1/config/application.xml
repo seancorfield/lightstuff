@@ -1,0 +1,12 @@
+<application 	title="Sample 1" 
+				name="sample1"
+				dataSource="sample1"
+				adminObjectList="User">
+
+<inputProperties>
+	<property name="FormReturning" defaultValue="0" DataType="integer" />
+	<property name="ControllerName" defaultValue="main" DataType="string" />
+	<property name="ControllerMethod" defaultValue="default" DataType="string" />
+</inputProperties>				
+
+</application>

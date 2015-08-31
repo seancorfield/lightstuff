@@ -1,0 +1,7 @@
+<controller name="main">
+
+<methods>
+	<display name="default" view="main.test" data="%action%" />
+</methods>
+
+</controller>

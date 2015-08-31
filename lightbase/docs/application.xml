@@ -1,0 +1,29 @@
+<documentation name="application" shortDescription="The XML for describing overall application settings.">
+
+<attributes>
+	<attribute name="title" description="The human readable title for the application" required="true" default="" type="string" typeproperties="maxlength=50" />
+	<attribute name="name" description="The 'variable friendly' name for the application. [a-zA-Z0-9-] and starting with a letter. Application names must be unique within a hosting environment." required="false" default="Title with all unacceptable characters removed." type="string" typeproperties="maxlength=35" />
+	<attribute name="dataSource" description="The name of the data source to connect to." required="no" default="Defaults to the application name." type="string" typeproperties="maxlength=50" />
+	<attribute name="adminObjectList" description="A comma delimited list of objects that can be administrated through the default admin system." required="false" default="" type="EnumList" typeproperties="List=businessObjectList" />
+<!--  
+	<attribute name="" description="" required="" default="" type="" typeproperties="" />
+ -->
+</attributes>
+
+<inputProperty>
+	<property name="property" description="The standard persistable, editable property">
+		<attribute name="name" description="The 'variable friendly' name for the property. [a-zA-Z0-9-] and starting with a letter. Property names must be unique within a business object." required="false" default="Title with all unacceptable characters removed." type="string" typeproperties="maxlength=50" />
+		<attribute name="defaultValue" description="The default value to return if the length of the input property is 0." required="false" default="" type="string" typeproperties="" />
+		<attribute name="dataType" description="The lightBase custom data type for the property. Affects how the property is displayed, edited, validated and processed." required="true" default="" type="Enum" typeproperties="List=dataType" />
+		<notes><![CDATA['
+This is used to describe, default and (eventualy) validate input properties. 
+Allows you to tell the application things like if there isn't a categoryId, to default it to category 7 which is the home category for your catalog.
+		']]></notes>
+	</property>
+<!-- 
+		<attribute name="" description="" required="" default="" type="" typeproperties="" />
+ -->
+</inputProperty>
+
+
+</documentation>

@@ -1,0 +1,7 @@
+<controller name="main">
+
+<methods>
+	<display name="default" data="" />
+</methods>
+
+</controller>

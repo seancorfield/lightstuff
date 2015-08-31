@@ -1,0 +1,6 @@
+<generate>
+	<step title="Generate controller class files" template="templates/controller.cft">
+		<list type="FilesInDirectory" exclude="" directory="metadatadirectory/controllers" />
+		<metadata type="class" classpath="../../samples/controllergen/com/controllermetadata" />
+	</step>
+</generate>

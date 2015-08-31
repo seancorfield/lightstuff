@@ -1,0 +1,11 @@
+<controller name="admin">
+
+<methods>
+	<display name="default" />
+	<list name="list" businessObject="%object%" method="getAdminList" />
+	<objectform name="edit" view="admin.form" title="Edit %Object%" businessObject="%Object%" propertyValue="%ID%" validationContextList="admin" PropertyList="EditList" successLocation="index.cfm?action=admin.list&amp;object=%object%" successMessage="SaveSuccessful" />
+	<objectform name="add" view="admin.form" title="Add %Object%" businessObject="%Object%" PropertyList="AddList" validationContextList="admin" successLocation="index.cfm?action=admin.list&amp;object=%object%" successMessage="AddSuccessful" />
+	<delete name="delete" businessObject="%Object%" propertyValue="%ID%" successLocation="index.cfm?action=admin.list&amp;object=%object%" successMessage="DeleteSuccessful" />
+</methods>
+
+</controller>

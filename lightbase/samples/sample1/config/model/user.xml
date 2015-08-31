@@ -1,0 +1,19 @@
+<model 	name="User"
+		extends="abstractuser"> 
+
+<properties>
+	<property title="Phone Number" name="PhoneNumber" dataType="usphone" dataTypeProperties="" />
+</properties>
+
+<relationships>
+	<has-many name="OrderItems" title="Order Items" objectName="OrderItem" dependency="composed" fromFieldName="OrderID" ToFieldName="OrderID" JoinTableName="" />
+</relationships>
+
+<methods>
+	<getByFilter name="getAdminList" propertyNameList="FirstName,LastName,PhoneNumber" />
+</methods>
+
+<validationContexts>
+</validationContexts>
+
+</model>

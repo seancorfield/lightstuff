@@ -1,0 +1,13 @@
+<<cfoutput>><cfcomponent name="%Metadata.getName()%" 
+			 extends="coldbox.system.EventHandler" 
+			 output="false"
+			 autowire="true">
+<<cfloop list="%Metadata.getMethodList()%" index="MethodName">>
+<cffunction name="%MethodName%" returntype="void" output="false">
+	<cfargument name="Event" type="any" required="yes">
+	<cfscript>
+	%structKeyList( Metadata.getMethodProperties( MethodName ) )%
+	</cfscript>
+</cffunction>
+<</cfloop>>
+</cfcomponent><</cfoutput>>
